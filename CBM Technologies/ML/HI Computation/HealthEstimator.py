@@ -8,7 +8,6 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 
-from sklearn.cluster import KMeans
 
 # From external dataset (DEBUGGING)
 from DatasetCollection import feature_standardise
@@ -25,9 +24,6 @@ DEBUG = True
 
 DATAPOINTS_PER_FILE = 20480
 SAMPLE_RATE = 20000 # 20 kHz
-
-
-# NOTE Save the trained model. and reuse that in digital twin
 
 
 # Sequence length is the amount of consecutive bursts to join together for assessing (rather than just 1 individual burst)
@@ -80,11 +76,6 @@ def identify_healthy_data(df:pd.DataFrame):
         recent = df[t-WINDOW:t]
         all_previous = df[:t-WINDOW]
 
-        # if index >= 100:
-        #     print(f"all_previous: {all_previous.shape}")
-        #     print(f"recent: {recent.shape}")
-        #     break
-
         if len(all_previous) < WINDOW:
             index+=1
             continue
@@ -115,7 +106,6 @@ def identify_healthy_data(df:pd.DataFrame):
 
 def get_sequences(df):
     # Sequencing (using sliding window)
-
     data = df[list(FEATURES)].values
     sequences = []
     for i in range(len(data) - SEQUENCE_LENGTH + 1):
@@ -138,7 +128,6 @@ def train_model(healthy_sequences, save=True):
     ])
 
     autoencoder.compile(optimizer="adam", loss="mse")
-
     autoencoder.summary() 
     
     history = autoencoder.fit(
@@ -163,8 +152,6 @@ def train_model(healthy_sequences, save=True):
 
 
 def get_reconstruction_errs(autoencoder, all_sequences, df, healthy_df):
-   
-
     reconstruction = autoencoder.predict(all_sequences)
     reconstruction_error = np.mean((all_sequences - reconstruction)**2, axis=(1,2)) 
     
@@ -192,7 +179,7 @@ def get_reconstruction_errs(autoencoder, all_sequences, df, healthy_df):
 
 
     # Anomalies are those with errors above threshold
-    # Using 68-95-99.7 rule! - (Also if using p=3, this is known as Three-Sigma Rule)
+    # Using 68-95-99.7 rule
     # p=  1(68%), 2(95%) or 3(99.7%)
     P = 1
     # Same as probability function (Pr())
@@ -233,7 +220,7 @@ def get_health_index(smoothed_error, threshold, first_abnormal_idx):
     for n in range(1, len(damage)):
 
         # Unscaled exponentially weighted sum
-        # Same result as _lambda * damage! - Exponentially Weighted Moving Average? 
+        # Same result as _lambda * damage! - Exponentially Weighted Moving Average?
         # Forgetting factor brings value back down when errors shrink
         damage.iloc[n] = (_lambda * damage.iloc[n-1]) + (1 - _lambda) * d_signal.iloc[n]
 

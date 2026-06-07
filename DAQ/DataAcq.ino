@@ -6,12 +6,8 @@
 #include "ThingSpeak.h"
 WiFiClient client;
 
-// WIFi Parameters
-const char* SSID = "";
-const char* LAN_PASSWORD = "";
-// Thing Speak Parameters
-const unsigned long ChannelNumber1 = 0000000;
-const char* API_KEY = "";
+// WIFi & Thingspeak Parameters
+#include "SECRETS.h"
 
 
 #include <Wire.h>
