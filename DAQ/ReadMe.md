@@ -29,22 +29,55 @@ The following features are tested (subset is used). Found throughout relevant li
 
 ### <ins>Time Domain Statistical Indicators</ins>
 
-| Feature   | Equation |
+| Feature   | Definition |
 |   :---:   | :---:  |
-| STD       | $$\sqrt{\frac{1}{N}\sum_{i=1}^{N}\ (x_i-\mu ^2}$$ |
+| STD       | $$\sqrt{\frac{1}{N}\sum_{i=1}^{N}\ (x_i-\mu) ^2}$$ |
 | Skewness  | $$\frac{\sum_{i=1}^{N}\ (x_i-\mu)^3}{\ (N-1)\ \sigma^3}$$ |
-| Kurtosis  | $$Ku = \frac{\sum_{i=1}^{N}(x_i - \mu)^4}{(N-1)\sigma^4}$$ |
-| RMS       | $$RMS=\sqrt{\frac{1}{N}\sum_{i=1}^{N}x_i^2}$$ |
-| PTP       | $$PTP = MaxPeak-MinPeak$$
+| Kurtosis  | $$\frac{\sum_{i=1}^{N}(x_i - \mu)^4}{(N-1)\sigma^4}$$ |
+| RMS       | $$\sqrt{\frac{1}{N}\sum_{i=1}^{N}x_i^2}$$ |
+| PTP       | $$max ({x}_i) - min ({x}_i)$$
 | Crest Factor | $$CF = \frac{\max{\|x_i\|}}{RMS}$$
 
 ### <ins>Frequency Domain Statistical Indicators</ins>
 
 
-| Feature   | Equation |
-|   :---:   | :---:  |
-| Spectral Centroid | $$\frac{\sum_{n=1}^{F}{f_n\|M_n\|}}{\sum_{n=1}^{F}\|M_n\|}$$ |
-| Spectral Spread | $$SS = \sqrt{\frac{\sum_{n=1}^{F}{(f_n-SC)^2\ *\ \|M_n\|}}{\sum_{n=1}^{F}\ \|M_n\|}}$$ |
-| Spectral Energy | $$SE = \sum_{n=1}^{F}\|M_n\|^2$$ |
-| Spectral Peak Frequency | $$SPF = f_{argmax\ \|M\ (f_n)\|\ }$$ |
-| Spectral Entropy | $$P_n = \frac{\|M_n\|}{\sum_{n=1}^{F}{|M_n|}}$$ $$ {PSafe}_n=P_n>\ 0 $$ $$SEN = \frac{-\sum_{n=1}^{F}{{PSafe}n\ * \ \log_2({PSafe}_n\ )}}{{log}_2\ (F)}$$ |
+<table>
+    <tr>
+        <th> Feature </th>
+        <th> Definition </th>
+    </tr>
+    <tr>
+        <th> Spectral Centroid </th>
+        <th> 
+            $$\frac{\sum_{n=1}^{F}{f_n|M_n|}}{\sum_{n=1}^{F}|M_n|}$$ 
+        </th>
+    </tr>
+    <tr>
+        <th> Spectral Spread </th>
+        <th>
+            $$\sqrt{\frac{\sum_{n=1}^{F}{(f_n-SC)^2\ *\ |M_n|}}{\sum_{n=1}^{F}\ |M_n|}}$$
+        </th>
+    </tr>
+    <tr>
+        <th>Spectral Energy </th>
+        <th>
+            $$\sum_{n=1}^{F}|M_n|^2$$
+        </th>
+    </tr>
+    <tr>
+        <th>Spectral Peak Frequency</th>
+        <th>
+             $$f_{argmax\ |M\ (f_n)|\ }$$
+        </th>
+    </tr>
+    <tr>
+        <th> Spectral Entropy </th>
+        <th>
+            $${P}_n=\frac{|M_n|}{\sum_{n=1}^{F}{|M_n|}}$$ 
+            <br><br>
+            $${PSafe}_n=P_n>\ 0 $$
+            <br><br>
+            $$\frac{-\sum_{n=1}^{F}{{PSafe}_n\ * \ \log_2({PSafe}_n\ )}}{{log}_2\ (F)}$$
+        </th>
+    </tr>
+</table>
